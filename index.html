@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./style.css?v=mobilefix3" />
+    <link rel="stylesheet" href="./style.css?v=mobilefix4" />
   </head>
   <body>
     <div class="app-shell">
@@ -20,23 +20,23 @@
 
       <header class="hero-card">
         <div class="hero-copy">
-          <p class="eyebrow">Bikini Bottom Kitchen</p>
           <h1>BB Bucket</h1>
           <p class="hero-text">今天不纠结，点一点就开饭。挑你想吃的，或者让系统帮你随机配一桌。</p>
         </div>
       </header>
 
       <main class="page-content">
-        <section class="action-panel">
-          <div class="section-title">
+        <section class="action-panel collapsible is-open" id="actionPanel">
+          <button class="section-toggle" id="actionToggle" type="button" aria-expanded="true">
             <span>快速决定</span>
-            <p>选好菜数，剩下交给今天的手气。</p>
-          </div>
+            <span class="toggle-arrow">⌃</span>
+          </button>
 
-          <div class="action-row">
+          <div class="section-body action-row">
             <label class="select-card" for="dishCount">
               <span class="select-label">想来几道菜</span>
               <select id="dishCount" aria-label="选择生成菜品数量">
+                <option value="1">1 道</option>
                 <option value="2">2 道</option>
                 <option value="3" selected>3 道</option>
                 <option value="4">4 道</option>
@@ -51,19 +51,26 @@
           </div>
         </section>
 
-        <section class="hot-section">
-          <div class="section-title">
+        <section class="hot-section collapsible" id="hotSection">
+          <button class="section-toggle" id="hotToggle" type="button" aria-expanded="false">
             <span>BB 精选</span>
+            <span class="toggle-arrow">⌃</span>
+          </button>
+          <div class="section-body">
+            <div class="hot-list" id="hotList"></div>
           </div>
-          <div class="hot-list" id="hotList"></div>
         </section>
 
         <section class="browse-section">
           <div class="section-title">
             <span>挑菜区</span>
           </div>
-          <div class="category-tabs" id="categoryTabs"></div>
-          <div class="dish-grid" id="dishGrid"></div>
+          <div class="browse-layout">
+            <div class="category-sidebar" id="categoryTabs"></div>
+            <div class="dish-scroll">
+              <div class="dish-grid" id="dishGrid"></div>
+            </div>
+          </div>
         </section>
       </main>
 
@@ -106,18 +113,10 @@
       <article class="dish-card">
         <div class="dish-image-wrap">
           <div class="dish-image"></div>
-          <span class="dish-badge"></span>
         </div>
         <div class="dish-body">
-          <div class="dish-head">
-            <h3></h3>
-            <span class="dish-category"></span>
-          </div>
-          <p class="dish-desc"></p>
-          <div class="dish-actions">
-            <button class="card-toggle" type="button">点我选这道</button>
-            <button class="add-btn" type="button">加入今日菜单</button>
-          </div>
+          <h3></h3>
+          <button class="add-btn" type="button" aria-label="加入今日菜单">+</button>
         </div>
       </article>
     </template>
@@ -132,6 +131,6 @@
       </li>
     </template>
 
-    <script src="./script.js?v=mobilefix3"></script>
+    <script src="./script.js?v=mobilefix4"></script>
   </body>
 </html>

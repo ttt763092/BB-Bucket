@@ -150,6 +150,10 @@ const selectedItemTemplate = document.getElementById("selectedItemTemplate");
 const randomBarBtn = document.getElementById("randomBarBtn");
 const barSummaryText = document.getElementById("barSummaryText");
 const toast = document.getElementById("toast");
+const actionPanel = document.getElementById("actionPanel");
+const hotSection = document.getElementById("hotSection");
+const actionToggle = document.getElementById("actionToggle");
+const hotToggle = document.getElementById("hotToggle");
 
 let activeCategory = "全部";
 let toastTimer = null;
@@ -225,7 +229,7 @@ function renderHotList() {
     const chip = document.createElement("button");
     chip.type = "button";
     chip.className = "hot-chip";
-    chip.innerHTML = `<strong>${dish.emoji} ${dish.name}</strong><span>${dish.category}</span>`;
+    chip.innerHTML = `<strong>${dish.emoji} ${dish.name}</strong><span></span>`;
     chip.addEventListener("click", () => {
       const alreadySelected = selectedIds.has(dish.id);
       if (alreadySelected) {
@@ -267,18 +271,12 @@ function renderDishGrid() {
   visibleDishes.forEach((dish) => {
     const card = dishCardTemplate.content.firstElementChild.cloneNode(true);
     card.querySelector(".dish-image").textContent = dish.emoji;
-    card.querySelector(".dish-badge").textContent = dish.hot ? "HOT" : "推荐";
     card.querySelector("h3").textContent = dish.name;
-    card.querySelector(".dish-category").textContent = dish.category;
-    card.querySelector(".dish-desc").textContent = "";
 
     const addButton = card.querySelector(".add-btn");
-    const cardToggle = card.querySelector(".card-toggle");
     const isSelected = selectedIds.has(dish.id);
-    addButton.textContent = isSelected ? "已加入菜单" : "加入今日菜单";
+    addButton.textContent = isSelected ? "−" : "+";
     addButton.classList.toggle("selected", isSelected);
-    cardToggle.textContent = isSelected ? "换一道看看" : "点我选这道";
-    cardToggle.classList.toggle("selected", isSelected);
 
     const toggleDish = () => {
       if (selectedIds.has(dish.id)) {
@@ -291,27 +289,15 @@ function renderDishGrid() {
       refreshAll();
     };
 
-    card.addEventListener("click", (event) => {
-      const target = event.target;
-      if (target instanceof HTMLElement && target.closest("button")) {
-        return;
-      }
-      toggleDish();
-    });
-
-    cardToggle.addEventListener("click", toggleDish);
-    addButton.addEventListener("click", () => {
-      if (!selectedIds.has(dish.id)) {
-        selectedIds.add(dish.id);
-        showToast(`已加入 ${dish.name}`);
-        refreshAll();
-        return;
-      }
-      openDrawer();
-    });
+    addButton.addEventListener("click", toggleDish);
 
     dishGrid.append(card);
   });
+}
+
+function toggleSection(section, toggleButton) {
+  const isOpen = section.classList.toggle("is-open");
+  toggleButton.setAttribute("aria-expanded", String(isOpen));
 }
 
 function openDrawer() {
@@ -371,6 +357,8 @@ menuFab.addEventListener("click", openDrawer);
 drawerBackdrop.addEventListener("click", closeDrawer);
 closeDrawerBtn.addEventListener("click", closeDrawer);
 rerollMenuBtn.addEventListener("click", rerollRandomMenu);
+actionToggle.addEventListener("click", () => toggleSection(actionPanel, actionToggle));
+hotToggle.addEventListener("click", () => toggleSection(hotSection, hotToggle));
 
 renderHotList();
 renderCategoryTabs();
