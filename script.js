@@ -140,16 +140,19 @@ const selectedList = document.getElementById("selectedList");
 const drawerCountText = document.getElementById("drawerCountText");
 const dishCount = document.getElementById("dishCount");
 const randomMenuBtn = document.getElementById("randomMenuBtn");
-const surpriseBtn = document.getElementById("surpriseBtn");
 const menuFab = document.getElementById("menuFab");
 const menuDrawer = document.getElementById("menuDrawer");
 const drawerBackdrop = document.getElementById("drawerBackdrop");
 const closeDrawerBtn = document.getElementById("closeDrawerBtn");
-const clearMenuBtn = document.getElementById("clearMenuBtn");
+const rerollMenuBtn = document.getElementById("rerollMenuBtn");
 const dishCardTemplate = document.getElementById("dishCardTemplate");
 const selectedItemTemplate = document.getElementById("selectedItemTemplate");
+const randomBarBtn = document.getElementById("randomBarBtn");
+const barSummaryText = document.getElementById("barSummaryText");
+const toast = document.getElementById("toast");
 
 let activeCategory = "全部";
+let toastTimer = null;
 
 function shuffle(array) {
   const result = [...array];
@@ -171,6 +174,20 @@ function updateDrawerSummary() {
   selectedCount.textContent = String(count);
   drawerCountText.textContent =
     count > 0 ? `已经选了 ${count} 道，今天这顿开始有样子了。` : "还没选菜，先去逛逛吧";
+  barSummaryText.textContent = count > 0 ? `已选 ${count} 道菜` : "还没选菜";
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  window.clearTimeout(toastTimer);
+  toastTimer = window.setTimeout(() => {
+    toast.classList.remove("show");
+  }, 1800);
+}
+
+function pickRandomDishes(count, excludedIds = new Set()) {
+  return shuffle(dishes.filter((dish) => !excludedIds.has(dish.id))).slice(0, Math.max(0, count));
 }
 
 function renderSelectedList() {
@@ -205,13 +222,20 @@ function renderHotList() {
   hotList.innerHTML = "";
 
   hotDishes.forEach((dish) => {
-    const chip = document.createElement("div");
+    const chip = document.createElement("button");
+    chip.type = "button";
     chip.className = "hot-chip";
     chip.innerHTML = `<strong>${dish.emoji} ${dish.name}</strong><span>${dish.category}</span>`;
     chip.addEventListener("click", () => {
-      selectedIds.add(dish.id);
+      const alreadySelected = selectedIds.has(dish.id);
+      if (alreadySelected) {
+        selectedIds.delete(dish.id);
+        showToast(`已从菜单移除 ${dish.name}`);
+      } else {
+        selectedIds.add(dish.id);
+        showToast(`已加入 ${dish.name}`);
+      }
       refreshAll();
-      openDrawer();
     });
     hotList.append(chip);
   });
@@ -249,16 +273,41 @@ function renderDishGrid() {
     card.querySelector(".dish-desc").textContent = dish.description;
 
     const addButton = card.querySelector(".add-btn");
+    const cardToggle = card.querySelector(".card-toggle");
     const isSelected = selectedIds.has(dish.id);
     addButton.textContent = isSelected ? "已加入菜单" : "加入今日菜单";
     addButton.classList.toggle("selected", isSelected);
-    addButton.addEventListener("click", () => {
+    cardToggle.textContent = isSelected ? "换一道看看" : "点我选这道";
+    cardToggle.classList.toggle("selected", isSelected);
+
+    const toggleDish = () => {
       if (selectedIds.has(dish.id)) {
         selectedIds.delete(dish.id);
+        showToast(`已移除 ${dish.name}`);
       } else {
         selectedIds.add(dish.id);
+        showToast(`已加入 ${dish.name}`);
       }
       refreshAll();
+    };
+
+    card.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest("button")) {
+        return;
+      }
+      toggleDish();
+    });
+
+    cardToggle.addEventListener("click", toggleDish);
+    addButton.addEventListener("click", () => {
+      if (!selectedIds.has(dish.id)) {
+        selectedIds.add(dish.id);
+        showToast(`已加入 ${dish.name}`);
+        refreshAll();
+        return;
+      }
+      openDrawer();
     });
 
     dishGrid.append(card);
@@ -277,11 +326,37 @@ function closeDrawer() {
 
 function generateRandomMenu() {
   const requestedCount = Number(dishCount.value);
-  const randomDishes = shuffle(dishes).slice(0, Math.min(requestedCount, dishes.length));
+  const currentCount = selectedIds.size;
+  const remainingSlots = Math.max(0, requestedCount - currentCount);
+
+  if (remainingSlots === 0) {
+    showToast(`已经有 ${currentCount} 道菜了，没有覆盖原来的选择`);
+    openDrawer();
+    return;
+  }
+
+  const randomDishes = pickRandomDishes(Math.min(remainingSlots, dishes.length), selectedIds);
+
+  if (randomDishes.length === 0) {
+    showToast("菜库已经选满啦，没法再随机了");
+    openDrawer();
+    return;
+  }
+
+  randomDishes.forEach((dish) => selectedIds.add(dish.id));
+  refreshAll();
+  showToast(`新增了 ${randomDishes.length} 道随机菜`);
+  openDrawer();
+}
+
+function rerollRandomMenu() {
+  const requestedCount = Number(dishCount.value);
+  const randomDishes = pickRandomDishes(Math.min(requestedCount, dishes.length));
 
   selectedIds.clear();
   randomDishes.forEach((dish) => selectedIds.add(dish.id));
   refreshAll();
+  showToast(`重新帮你抽了 ${randomDishes.length} 道菜`);
   openDrawer();
 }
 
@@ -291,14 +366,11 @@ function refreshAll() {
 }
 
 randomMenuBtn.addEventListener("click", generateRandomMenu);
-surpriseBtn.addEventListener("click", generateRandomMenu);
+randomBarBtn.addEventListener("click", generateRandomMenu);
 menuFab.addEventListener("click", openDrawer);
 drawerBackdrop.addEventListener("click", closeDrawer);
 closeDrawerBtn.addEventListener("click", closeDrawer);
-clearMenuBtn.addEventListener("click", () => {
-  selectedIds.clear();
-  refreshAll();
-});
+rerollMenuBtn.addEventListener("click", rerollRandomMenu);
 
 renderHotList();
 renderCategoryTabs();
