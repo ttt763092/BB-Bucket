@@ -206,7 +206,7 @@ function renderSelectedList() {
   currentSelected.forEach((dish) => {
     const item = selectedItemTemplate.content.firstElementChild.cloneNode(true);
     item.querySelector("strong").textContent = dish.name;
-    item.querySelector("p").textContent = `${dish.category} · ${dish.description}`;
+    item.querySelector("p").textContent = `${dish.category}`;
     item.querySelector(".remove-btn").addEventListener("click", () => {
       selectedIds.delete(dish.id);
       refreshAll();
@@ -270,7 +270,7 @@ function renderDishGrid() {
     card.querySelector(".dish-badge").textContent = dish.hot ? "HOT" : "推荐";
     card.querySelector("h3").textContent = dish.name;
     card.querySelector(".dish-category").textContent = dish.category;
-    card.querySelector(".dish-desc").textContent = dish.description;
+    card.querySelector(".dish-desc").textContent = "";
 
     const addButton = card.querySelector(".add-btn");
     const cardToggle = card.querySelector(".card-toggle");
