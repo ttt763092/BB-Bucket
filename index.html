@@ -10,76 +10,85 @@
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./style.css?v=cachefix1" />
+    <link rel="stylesheet" href="./style.css?v=mobilefix2" />
   </head>
   <body>
     <div class="app-shell">
-      <header class="hero-card">
-        <p class="eyebrow">Bikini Bottom Kitchen</p>
-        <div class="hero-top">
-          <div>
-            <h1>BB Bucket</h1>
-            <p class="hero-text">今天吃什么，3 秒决定。先选几道，再从列表里快速点菜。</p>
-          </div>
-          <button class="menu-pill" id="menuFab" type="button">
-            <span id="selectedCount">0</span>
-            菜单
-          </button>
-        </div>
+      <div class="bg-orb orb-a"></div>
+      <div class="bg-orb orb-b"></div>
+      <div class="bg-grid"></div>
 
-        <section class="quick-bar">
-          <label class="count-picker" for="dishCount">
-            <span>菜品数</span>
-            <select id="dishCount" aria-label="选择生成菜品数量">
-              <option value="2">2 道</option>
-              <option value="3" selected>3 道</option>
-              <option value="4">4 道</option>
-              <option value="5">5 道</option>
-              <option value="6">6 道</option>
-            </select>
-          </label>
-          <button class="primary-btn" id="randomMenuBtn" type="button">随机补齐</button>
-        </section>
+      <header class="hero-card">
+        <div class="hero-copy">
+          <p class="eyebrow">Bikini Bottom Kitchen</p>
+          <h1>BB Bucket</h1>
+          <p class="hero-text">今天不纠结，点一点就开饭。挑你想吃的，或者让系统帮你随机配一桌。</p>
+          <div class="hero-meta">
+            <span>16 道家常菜</span>
+            <span>手机点一点就出菜单</span>
+          </div>
+        </div>
       </header>
 
       <main class="page-content">
-        <section class="feature-strip">
-          <div class="feature-chip">16 道示例菜</div>
-          <div class="feature-chip">后续可扩到 100+</div>
-          <div class="feature-chip">点击整行即可选菜</div>
+        <section class="action-panel">
+          <div class="section-title">
+            <span>快速决定</span>
+            <p>选好菜数，剩下交给今天的手气。</p>
+          </div>
+
+          <div class="action-row">
+            <label class="select-card" for="dishCount">
+              <span class="select-label">想来几道菜</span>
+              <select id="dishCount" aria-label="选择生成菜品数量">
+                <option value="2">2 道</option>
+                <option value="3" selected>3 道</option>
+                <option value="4">4 道</option>
+                <option value="5">5 道</option>
+                <option value="6">6 道</option>
+              </select>
+            </label>
+
+            <div class="button-group">
+              <button class="primary-btn" id="randomMenuBtn" type="button">一键生成今日菜单</button>
+            </div>
+          </div>
         </section>
 
         <section class="hot-section">
-          <div class="section-head">
-            <h2>BB 精选</h2>
-            <span>犹豫时先看这里</span>
+          <div class="section-title">
+            <span>BB 精选</span>
+            <p>犹豫的时候，先看大家都爱点什么。</p>
           </div>
           <div class="hot-list" id="hotList"></div>
         </section>
 
         <section class="browse-section">
-          <div class="section-head">
-            <h2>挑菜区</h2>
-            <span id="dishCountLabel">共 16 道菜</span>
+          <div class="section-title">
+            <span>挑菜区</span>
+            <p>按分类切换，想吃什么一眼锁定。</p>
           </div>
           <div class="category-tabs" id="categoryTabs"></div>
-          <div class="dish-list" id="dishGrid"></div>
+          <div class="dish-grid" id="dishGrid"></div>
         </section>
       </main>
 
       <div class="bottom-bar">
-        <button class="bar-secondary" id="randomBarBtn" type="button">随机补齐</button>
-        <button class="bar-primary" id="openMenuBtn" type="button">
-          <strong>今日菜单</strong>
-          <small id="barSummaryText">还没选菜</small>
+        <button class="bar-secondary" id="randomBarBtn" type="button">随机配菜</button>
+        <button class="bar-primary" id="menuFab" type="button">
+          <span class="fab-badge" id="selectedCount">0</span>
+          <span class="bar-copy">
+            <strong>查看今日菜单</strong>
+            <small id="barSummaryText">还没选菜</small>
+          </span>
         </button>
       </div>
 
-      <aside class="menu-sheet" id="menuDrawer" aria-hidden="true">
-        <div class="sheet-backdrop" id="drawerBackdrop"></div>
-        <div class="sheet-panel">
-          <div class="sheet-handle"></div>
-          <div class="sheet-header">
+      <aside class="menu-drawer" id="menuDrawer" aria-hidden="true">
+        <div class="drawer-backdrop" id="drawerBackdrop"></div>
+        <div class="drawer-panel">
+          <div class="drawer-handle"></div>
+          <div class="drawer-header">
             <div>
               <p class="drawer-tag">Today's Picks</p>
               <h2>今日菜单</h2>
@@ -87,7 +96,7 @@
             <button class="icon-btn" id="closeDrawerBtn" type="button" aria-label="关闭菜单">×</button>
           </div>
 
-          <div class="sheet-summary">
+          <div class="drawer-summary">
             <span id="drawerCountText">还没选菜，先去逛逛吧</span>
             <button class="text-btn" id="rerollMenuBtn" type="button">再次随机</button>
           </div>
@@ -100,17 +109,23 @@
     <div class="toast" id="toast" aria-live="polite"></div>
 
     <template id="dishCardTemplate">
-      <button class="dish-row" type="button">
-        <span class="dish-emoji"></span>
-        <span class="dish-main">
-          <span class="dish-line">
-            <strong class="dish-name"></strong>
-            <span class="dish-meta"></span>
-          </span>
-          <span class="dish-desc"></span>
-        </span>
-        <span class="dish-state"></span>
-      </button>
+      <article class="dish-card">
+        <div class="dish-image-wrap">
+          <div class="dish-image"></div>
+          <span class="dish-badge"></span>
+        </div>
+        <div class="dish-body">
+          <div class="dish-head">
+            <h3></h3>
+            <span class="dish-category"></span>
+          </div>
+          <p class="dish-desc"></p>
+          <div class="dish-actions">
+            <button class="card-toggle" type="button">点我选这道</button>
+            <button class="add-btn" type="button">加入今日菜单</button>
+          </div>
+        </div>
+      </article>
     </template>
 
     <template id="selectedItemTemplate">
@@ -123,6 +138,6 @@
       </li>
     </template>
 
-    <script src="./script.js?v=cachefix1"></script>
+    <script src="./script.js?v=mobilefix2"></script>
   </body>
 </html>
