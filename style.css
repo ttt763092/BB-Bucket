@@ -246,6 +246,37 @@ select {
   background: linear-gradient(135deg, rgba(35, 193, 180, 0.12), rgba(255, 216, 77, 0.22));
 }
 
+.generated-block {
+  display: grid;
+  gap: 8px;
+}
+
+.generated-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
+.generated-list {
+  display: grid;
+  gap: 6px;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.option-item strong {
+  font-size: 0.82rem;
+  line-height: 1.2;
+}
+
 .select-label {
   font-weight: 700;
 }
@@ -301,6 +332,10 @@ select {
 
 .hot-chip {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   padding: 10px 12px;
   border-radius: 12px;
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(255, 247, 225, 0.82));
@@ -312,6 +347,7 @@ select {
 
 .hot-chip strong,
 .dish-card h3,
+.option-item strong,
 .selected-item strong {
   display: block;
 }
@@ -572,7 +608,6 @@ select {
 .drawer-summary {
   padding: 10px 0 12px;
   border-top: 1px solid rgba(36, 48, 74, 0.08);
-  border-bottom: 1px solid rgba(36, 48, 74, 0.08);
   font-size: 0.84rem;
 }
 

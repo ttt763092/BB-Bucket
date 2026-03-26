@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./style.css?v=mobilefix4" />
+    <link rel="stylesheet" href="./style.css?v=mobilefix5" />
   </head>
   <body>
     <div class="app-shell">
@@ -47,6 +47,11 @@
 
             <div class="button-group">
               <button class="primary-btn" id="randomMenuBtn" type="button">一键生成今日菜单</button>
+            </div>
+
+            <div class="generated-block" id="generatedBlock" hidden>
+              <span class="generated-label">生成候选菜</span>
+              <div class="generated-list" id="generatedList"></div>
             </div>
           </div>
         </section>
@@ -99,7 +104,6 @@
 
           <div class="drawer-summary">
             <span id="drawerCountText">还没选菜，先去逛逛吧</span>
-            <button class="text-btn" id="rerollMenuBtn" type="button">再次随机</button>
           </div>
 
           <ul class="selected-list" id="selectedList"></ul>
@@ -131,6 +135,13 @@
       </li>
     </template>
 
-    <script src="./script.js?v=mobilefix4"></script>
+    <template id="optionItemTemplate">
+      <article class="option-item">
+        <strong></strong>
+        <button class="add-btn" type="button" aria-label="加入今日菜单">+</button>
+      </article>
+    </template>
+
+    <script src="./script.js?v=mobilefix5"></script>
   </body>
 </html>
