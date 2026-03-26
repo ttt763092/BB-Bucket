@@ -1,135 +1,616 @@
 const dishes = [
   {
     id: 1,
-    name: "可乐鸡翅",
-    category: "荤菜",
-    emoji: "🍗",
-    hot: true,
-    description: "甜咸刚好，超级适合当今天的快乐担当。"
+    name: "水煮腊排骨",
+    category: "肉菜",
+    emoji: "🍖",
+    hot: false
   },
   {
     id: 2,
-    name: "番茄炒蛋",
-    category: "家常",
-    emoji: "🍅",
-    hot: true,
-    description: "稳稳的国民下饭菜，几乎很难出错。"
+    name: "腊排骨豆角土豆焖面",
+    category: "主食",
+    emoji: "🍜",
+    hot: true
   },
   {
     id: 3,
-    name: "蒜蓉西兰花",
-    category: "素菜",
-    emoji: "🥦",
-    hot: false,
-    description: "清爽解腻，给菜单加一点绿色平衡感。"
+    name: "五花肉炒土豆片",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
   },
   {
     id: 4,
-    name: "玉米排骨汤",
-    category: "汤品",
-    emoji: "🍲",
-    hot: true,
-    description: "一锅热汤，家庭感立刻拉满。"
+    name: "炒花菜",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
   },
   {
     id: 5,
-    name: "宫保鸡丁",
-    category: "荤菜",
-    emoji: "🥢",
-    hot: true,
-    description: "微辣带甜，米饭杀手型选手。"
+    name: "炒大白菜",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
   },
   {
     id: 6,
-    name: "地三鲜",
+    name: "炒丝瓜",
     category: "素菜",
-    emoji: "🍆",
-    hot: false,
-    description: "土豆、茄子、青椒一起上桌，香得很直接。"
+    emoji: "🥬",
+    hot: false
   },
   {
     id: 7,
-    name: "香煎豆腐",
-    category: "素菜",
-    emoji: "🧈",
-    hot: false,
-    description: "外焦里嫩，适合喜欢轻负担的一餐。"
+    name: "鱼香肉丝",
+    category: "肉菜",
+    emoji: "🐟",
+    hot: false
   },
   {
     id: 8,
-    name: "酸辣土豆丝",
-    category: "素菜",
-    emoji: "🥔",
-    hot: true,
-    description: "脆爽开胃，和任何主菜都很配。"
+    name: "宫保鸡丁",
+    category: "肉菜",
+    emoji: "🍗",
+    hot: false
   },
   {
     id: 9,
-    name: "红烧肉",
-    category: "荤菜",
-    emoji: "🥩",
-    hot: true,
-    description: "想吃点满足感的时候，它总是很靠谱。"
+    name: "溜肉段",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: true
   },
   {
     id: 10,
-    name: "清炒时蔬",
-    category: "素菜",
-    emoji: "🥬",
-    hot: false,
-    description: "随机季节蔬菜，专治菜单太重口。"
+    name: "锅包肉",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
   },
   {
     id: 11,
-    name: "虾仁滑蛋",
-    category: "荤菜",
-    emoji: "🍤",
-    hot: false,
-    description: "口感软嫩，很适合家里大小朋友。"
+    name: "焖烧豆腐娃娃菜",
+    category: "素菜",
+    emoji: "🍲",
+    hot: false
   },
   {
     id: 12,
-    name: "紫菜蛋花汤",
-    category: "汤品",
-    emoji: "🥣",
-    hot: false,
-    description: "简单快手，十分钟就能安排上。"
+    name: "糖醋排骨",
+    category: "肉菜",
+    emoji: "🍖",
+    hot: false
   },
   {
     id: 13,
-    name: "扬州炒饭",
-    category: "主食",
-    emoji: "🍚",
-    hot: true,
-    description: "主食位的人气王，一盘很有满足感。"
+    name: "炒豆芽",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
   },
   {
     id: 14,
-    name: "葱爆牛肉",
-    category: "荤菜",
-    emoji: "🥩",
-    hot: false,
-    description: "香气浓郁，适合想来点硬菜的时候。"
+    name: "豉油鸡",
+    category: "肉菜",
+    emoji: "🍗",
+    hot: false
   },
   {
     id: 15,
-    name: "凉拌黄瓜",
-    category: "凉菜",
-    emoji: "🥒",
-    hot: false,
-    description: "一口清爽，给整桌菜降降温。"
+    name: "蒜苔炒肉丝",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
   },
   {
     id: 16,
-    name: "麻婆豆腐",
-    category: "家常",
-    emoji: "🌶️",
-    hot: true,
-    description: "又麻又香，下饭效率非常高。"
+    name: "豆角烧茄子",
+    category: "素菜",
+    emoji: "🍆",
+    hot: false
+  },
+  {
+    id: 17,
+    name: "银鱼炒鸡蛋",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 18,
+    name: "茭白肉丝",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 19,
+    name: "红烧带鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 20,
+    name: "炸带鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 21,
+    name: "炸小黄花鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 22,
+    name: "炸小鲳鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 23,
+    name: "炖笋壳鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 24,
+    name: "炖多宝鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: true
+  },
+  {
+    id: 25,
+    name: "水煮虾",
+    category: "鱼虾海鲜",
+    emoji: "🍤",
+    hot: false
+  },
+  {
+    id: 26,
+    name: "红烧牛蹄筋",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 27,
+    name: "辣子鸡",
+    category: "肉菜",
+    emoji: "🍗",
+    hot: false
+  },
+  {
+    id: 28,
+    name: "尖椒肥肠",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 29,
+    name: "酸辣牛杂",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 30,
+    name: "手撕包菜",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 31,
+    name: "辣椒炒肉",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 32,
+    name: "口蘑烧鸡腿",
+    category: "肉菜",
+    emoji: "🍗",
+    hot: false
+  },
+  {
+    id: 33,
+    name: "肉沫豆角",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 34,
+    name: "擂椒皮蛋",
+    category: "凉菜小菜",
+    emoji: "🥗",
+    hot: false
+  },
+  {
+    id: 35,
+    name: "土豆豆角炖排骨",
+    category: "肉菜",
+    emoji: "🍖",
+    hot: false
+  },
+  {
+    id: 36,
+    name: "炒空心菜",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 37,
+    name: "炒时蔬",
+    category: "素菜",
+    emoji: "🥬",
+    hot: true
+  },
+  {
+    id: 38,
+    name: "牛排炖豆角粉条",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: true
+  },
+  {
+    id: 39,
+    name: "大盘鸡",
+    category: "肉菜",
+    emoji: "🍗",
+    hot: true
+  },
+  {
+    id: 40,
+    name: "新疆炒米粉",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 41,
+    name: "麻辣烫",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 42,
+    name: "西芹虾仁",
+    category: "鱼虾海鲜",
+    emoji: "🍤",
+    hot: false
+  },
+  {
+    id: 43,
+    name: "炒腰花",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 44,
+    name: "溜肝尖",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 45,
+    name: "番茄牛腩",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 46,
+    name: "酸菜炖大骨",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 47,
+    name: "腊肉干豆角",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 48,
+    name: "腊肉笋干",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 49,
+    name: "杏鲍菇牛肉粒",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 50,
+    name: "煎牛排",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 51,
+    name: "手工饺子",
+    category: "主食",
+    emoji: "🥟",
+    hot: false
+  },
+  {
+    id: 52,
+    name: "腊肉土豆炒饭",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 53,
+    name: "西红柿鸡蛋挂面",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 54,
+    name: "青椒土豆肉丝挂面",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 55,
+    name: "煮方便面",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 56,
+    name: "凉拌海蜇皮",
+    category: "凉菜小菜",
+    emoji: "🥗",
+    hot: false
+  },
+  {
+    id: 57,
+    name: "荷塘小炒",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 58,
+    name: "土豆丝饼",
+    category: "主食",
+    emoji: "🥙",
+    hot: false
+  },
+  {
+    id: 59,
+    name: "玉米面饼",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 60,
+    name: "千层小饼",
+    category: "主食",
+    emoji: "🥙",
+    hot: false
+  },
+  {
+    id: 61,
+    name: "意面",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 62,
+    name: "三文鱼",
+    category: "鱼虾海鲜",
+    emoji: "🐟",
+    hot: false
+  },
+  {
+    id: 63,
+    name: "芦笋口蘑",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 64,
+    name: "手抓饭",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 65,
+    name: "炒年糕",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 66,
+    name: "辣炒花蛤",
+    category: "鱼虾海鲜",
+    emoji: "🦪",
+    hot: false
+  },
+  {
+    id: 67,
+    name: "蚂蚁上树",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 68,
+    name: "蒸鸡蛋糕",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 69,
+    name: "炸酱面",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 70,
+    name: "芹菜土豆丝",
+    category: "素菜",
+    emoji: "🥔",
+    hot: false
+  },
+  {
+    id: 71,
+    name: "凉拌鸡胗",
+    category: "凉菜小菜",
+    emoji: "🥗",
+    hot: false
+  },
+  {
+    id: 72,
+    name: "葱油拌面",
+    category: "主食",
+    emoji: "🍜",
+    hot: false
+  },
+  {
+    id: 73,
+    name: "干煸茶树菇",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 74,
+    name: "香辣羊蝎子",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 75,
+    name: "西红柿鸡蛋",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 76,
+    name: "皮蛋豆腐",
+    category: "凉菜小菜",
+    emoji: "🥗",
+    hot: false
+  },
+  {
+    id: 77,
+    name: "豆豉蒸排骨",
+    category: "肉菜",
+    emoji: "🍖",
+    hot: false
+  },
+  {
+    id: 78,
+    name: "京酱肉丝",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 79,
+    name: "白切牛肋条",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
+  },
+  {
+    id: 80,
+    name: "凉拌莴笋丝",
+    category: "凉菜小菜",
+    emoji: "🥗",
+    hot: false
+  },
+  {
+    id: 81,
+    name: "炸小酥肉",
+    category: "肉菜",
+    emoji: "🥘",
+    hot: false
+  },
+  {
+    id: 82,
+    name: "炒油麦菜",
+    category: "素菜",
+    emoji: "🥬",
+    hot: false
+  },
+  {
+    id: 83,
+    name: "疙瘩汤",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 84,
+    name: "牛肉汉堡",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 85,
+    name: "蛋炒饭",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 86,
+    name: "杂粮饭",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
+  },
+  {
+    id: 87,
+    name: "白米饭（配鸭蛋）",
+    category: "主食",
+    emoji: "🍚",
+    hot: false
   }
 ];
 
-const categories = ["全部", ...new Set(dishes.map((dish) => dish.category))];
+const categories = ["全部", "肉菜", "鱼虾海鲜", "素菜", "凉菜小菜", "主食"];
 const selectedIds = new Set();
 
 const categoryTabs = document.getElementById("categoryTabs");
