@@ -147,7 +147,6 @@ const closeDrawerBtn = document.getElementById("closeDrawerBtn");
 const dishCardTemplate = document.getElementById("dishCardTemplate");
 const selectedItemTemplate = document.getElementById("selectedItemTemplate");
 const optionItemTemplate = document.getElementById("optionItemTemplate");
-const randomBarBtn = document.getElementById("randomBarBtn");
 const barSummaryText = document.getElementById("barSummaryText");
 const toast = document.getElementById("toast");
 const actionPanel = document.getElementById("actionPanel");
@@ -355,7 +354,6 @@ function refreshAll() {
 }
 
 randomMenuBtn.addEventListener("click", generateRandomMenu);
-randomBarBtn.addEventListener("click", generateRandomMenu);
 menuFab.addEventListener("click", openDrawer);
 drawerBackdrop.addEventListener("click", closeDrawer);
 closeDrawerBtn.addEventListener("click", closeDrawer);
