@@ -1,0 +1,127 @@
+<view class="container">
+  <!-- Hero 区域 -->
+  <view class="hero-card">
+    <view class="hero-title">BB Bucket</view>
+    <view class="hero-text">今天不纠结，点一点就开饭。挑你想吃的，或者让系统帮你随机配一桌。</view>
+  </view>
+
+  <!-- 快速决定 -->
+  <view class="action-panel">
+    <view class="section-title">快速决定</view>
+    <view class="action-row">
+      <view class="select-card">
+        <text class="select-label">想来几道菜</text>
+        <picker mode="selector" range="{{dishCountOptions}}" value="{{dishCountIndex}}" bindchange="onDishCountChange">
+          <view class="picker-selector">{{dishCountOptions[dishCountIndex]}}</view>
+        </picker>
+      </view>
+      <button class="primary-btn" bindtap="onRandomMenuTap">一键生成今日菜单</button>
+      
+      <!-- 生成的候选菜 -->
+      <view class="generated-list" wx:if="{{showGenerated}}">
+        <view class="option-item" wx:for="{{generatedDishes}}" wx:key="id">
+          <strong>{{item.emoji}} {{item.name}}</strong>
+          <button class="add-btn {{selectedIds.indexOf(item.id) > -1 ? 'selected' : ''}}" 
+                  data-id="{{item.id}}" 
+                  bindtap="toggleDish">
+            {{selectedIds.indexOf(item.id) > -1 ? '−' : '+'}}
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- BB 精选 -->
+  <view class="hot-section">
+    <view class="section-title">BB 精选</view>
+    <view class="hot-list">
+      <view class="hot-chip" wx:for="{{hotDishes}}" wx:key="id">
+        <strong>{{item.emoji}} {{item.name}}</strong>
+        <button class="add-btn {{selectedIds.indexOf(item.id) > -1 ? 'selected' : ''}}" 
+                data-id="{{item.id}}" 
+                bindtap="toggleDish">
+          {{selectedIds.indexOf(item.id) > -1 ? '−' : '+'}}
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 挑菜区 -->
+  <view class="browse-section">
+    <view class="section-title">挑菜区</view>
+    
+    <!-- 分类标签 -->
+    <scroll-view class="category-tabs" scroll-x>
+      <button class="tab-btn {{activeCategory === item ? 'active' : ''}}" 
+              wx:for="{{categories}}" 
+              wx:key="*this" 
+              data-category="{{item}}"
+              bindtap="onCategoryTap">
+        {{item}}
+      </button>
+    </scroll-view>
+    
+    <!-- 菜品网格 -->
+    <view class="dish-grid">
+      <view class="dish-card" wx:for="{{visibleDishes}}" wx:key="id">
+        <view class="dish-image">{{item.emoji}}</view>
+        <view class="dish-body">
+          <text>{{item.name}}</text>
+          <button class="add-btn {{selectedIds.indexOf(item.id) > -1 ? 'selected' : ''}}" 
+                  data-id="{{item.id}}" 
+                  bindtap="toggleDish">
+            {{selectedIds.indexOf(item.id) > -1 ? '−' : '+'}}
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 底部栏 -->
+<view class="bottom-bar">
+  <button class="bar-primary" bindtap="openDrawer">
+    <view class="fab-badge">{{selectedCount}}</view>
+    <view class="bar-copy">
+      <strong>查看今日菜单</strong>
+      <small>{{selectedCount > 0 ? '已选 ' + selectedCount + ' 道菜' : '还没选菜'}}</small>
+    </view>
+  </button>
+</view>
+
+<!-- 抽屉遮罩 -->
+<view class="drawer-mask {{showDrawer ? 'show' : ''}}" bindtap="onMaskTap"></view>
+
+<!-- 抽屉面板 -->
+<view class="drawer-panel {{showDrawer ? 'show' : ''}}">
+  <view class="drawer-handle"></view>
+  <view class="drawer-header">
+    <view>
+      <view class="drawer-tag">Today's Picks</view>
+      <view class="drawer-header-title">今日菜单</view>
+    </view>
+    <button class="drawer-close" bindtap="closeDrawer">×</button>
+  </view>
+  
+  <view class="drawer-summary">
+    {{selectedCount > 0 ? '已经选了 ' + selectedCount + ' 道，今天这顿开始有样子了。' : '还没选菜，先去逛逛吧'}}
+  </view>
+  
+  <view class="selected-list">
+    <view class="selected-item" wx:for="{{selectedList}}" wx:key="id">
+      <view>
+        <strong>{{item.emoji}} {{item.name}}</strong>
+        <text>{{item.category}}</text>
+      </view>
+      <button class="remove-btn" data-id="{{item.id}}" bindtap="removeFromMenu">−</button>
+    </view>
+    
+    <view class="empty-state" wx:if="{{selectedCount === 0}}">
+      <strong>菜单空空</strong>
+      <text>去菜品区点几道，或者直接随机生成。</text>
+    </view>
+  </view>
+</view>
+
+<!-- Toast -->
+<view class="toast {{showToast ? 'show' : ''}}">{{toastMessage}}</view>
