@@ -607,6 +607,13 @@ const dishes = [
     category: "主食",
     emoji: "🍚",
     hot: false
+  },
+  {
+    id: 88,
+    name: "烤牛胸口",
+    category: "肉菜",
+    emoji: "🥩",
+    hot: false
   }
 ];
 
@@ -706,8 +713,8 @@ function renderSelectedList() {
 
   currentSelected.forEach((dish) => {
     const item = selectedItemTemplate.content.firstElementChild.cloneNode(true);
-    item.querySelector("strong").textContent = dish.name;
-    item.querySelector("p").textContent = `${dish.emoji}`;
+    item.querySelector("strong").textContent = `${dish.emoji} ${dish.name}`;
+    item.querySelector("p").textContent = "";
     item.querySelector(".remove-btn").addEventListener("click", () => {
       selectedIds.delete(dish.id);
       refreshAll();

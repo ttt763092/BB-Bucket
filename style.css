@@ -741,19 +741,30 @@ select {
 }
 
 .selected-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
   padding: 10px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(187, 236, 211, 0.58);
 }
 
+.selected-item > div {
+  min-width: 0;
+}
+
 .selected-item strong {
-  margin-bottom: 4px;
+  display: block;
+  margin: 0;
+  line-height: 1.3;
 }
 
 .selected-item p {
   margin: 0;
   font-size: 0.76rem;
+  display: none;
 }
 
 .selected-emoji {
