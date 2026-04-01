@@ -636,10 +636,13 @@ const actionToggle = document.getElementById("actionToggle");
 const hotToggle = document.getElementById("hotToggle");
 const generatedBlock = document.getElementById("generatedBlock");
 const generatedList = document.getElementById("generatedList");
+const dishSearch = document.getElementById("dishSearch");
+const clearSearchBtn = document.getElementById("clearSearchBtn");
 
 let activeCategory = "全部";
 let toastTimer = null;
 let generatedDishIds = [];
+let activeSearchQuery = "";
 
 function shuffle(array) {
   const result = [...array];
@@ -753,10 +756,26 @@ function renderCategoryTabs() {
 }
 
 function renderDishGrid() {
-  const visibleDishes =
-    activeCategory === "全部" ? dishes : dishes.filter((dish) => dish.category === activeCategory);
+  const normalizedQuery = activeSearchQuery.trim().toLowerCase();
+  let visibleDishes = activeCategory === "全部" ? dishes : dishes.filter((dish) => dish.category === activeCategory);
+
+  if (normalizedQuery) {
+    visibleDishes = dishes.filter((dish) => dish.name.toLowerCase().includes(normalizedQuery));
+  }
 
   dishGrid.innerHTML = "";
+
+  if (clearSearchBtn) {
+    clearSearchBtn.hidden = !normalizedQuery;
+  }
+
+  if (visibleDishes.length === 0) {
+    const emptyState = document.createElement("div");
+    emptyState.className = "search-empty";
+    emptyState.textContent = `没有找到“${activeSearchQuery.trim()}”相关菜品，换个关键词试试。`;
+    dishGrid.append(emptyState);
+    return;
+  }
 
   visibleDishes.forEach((dish) => {
     const card = dishCardTemplate.content.firstElementChild.cloneNode(true);
@@ -840,6 +859,16 @@ drawerBackdrop.addEventListener("click", closeDrawer);
 closeDrawerBtn.addEventListener("click", closeDrawer);
 actionToggle.addEventListener("click", () => toggleSection(actionPanel, actionToggle));
 hotToggle.addEventListener("click", () => toggleSection(hotSection, hotToggle));
+dishSearch.addEventListener("input", (event) => {
+  activeSearchQuery = event.target.value;
+  renderDishGrid();
+});
+clearSearchBtn.addEventListener("click", () => {
+  activeSearchQuery = "";
+  dishSearch.value = "";
+  renderDishGrid();
+  dishSearch.focus();
+});
 
 renderCategoryTabs();
 refreshAll();

@@ -69,6 +69,20 @@
           <div class="section-title">
             <span>挑菜区</span>
           </div>
+          <label class="search-card" for="dishSearch">
+            <span class="search-label">搜索菜品</span>
+            <div class="search-field">
+              <input
+                id="dishSearch"
+                class="search-input"
+                type="search"
+                inputmode="search"
+                placeholder="输入菜名，支持全局搜索"
+                autocomplete="off"
+              />
+              <button id="clearSearchBtn" class="clear-search-btn" type="button" hidden aria-label="清空搜索">×</button>
+            </div>
+          </label>
           <div class="browse-layout">
             <div class="category-sidebar" id="categoryTabs"></div>
             <div class="dish-scroll">
