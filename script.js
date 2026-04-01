@@ -707,7 +707,7 @@ function renderSelectedList() {
   currentSelected.forEach((dish) => {
     const item = selectedItemTemplate.content.firstElementChild.cloneNode(true);
     item.querySelector("strong").textContent = dish.name;
-    item.querySelector("p").textContent = `${dish.category}`;
+    item.querySelector("p").textContent = `${dish.emoji}`;
     item.querySelector(".remove-btn").addEventListener("click", () => {
       selectedIds.delete(dish.id);
       refreshAll();
@@ -867,7 +867,6 @@ clearSearchBtn.addEventListener("click", () => {
   activeSearchQuery = "";
   dishSearch.value = "";
   renderDishGrid();
-  dishSearch.focus();
 });
 
 renderCategoryTabs();
